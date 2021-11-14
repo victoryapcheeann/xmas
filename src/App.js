@@ -1,7 +1,9 @@
-import React, { useState, forwardRef } from 'react'
+import React, { useState } from 'react'
 import shuffle from 'lodash.shuffle'
 import './App.css'
-import FlipMove from 'react-flip-move';
+import Container from './compenent/container';
+import Snow from './compenent/snow';
+import Neon from './compenent/neon';
 
 export default function App() {
   const [data, setData] = useState([{id:1, name:'1a'},{id:2, name:'1b'},{id:3, name:'1d'},{id:4, name:'1g'},{id:5, name:'1g'},{id:6, name:'1g'}])
@@ -38,34 +40,23 @@ export default function App() {
     }
   }
 
-  const FunctionalArticle = forwardRef((props, ref) => {    
-    return(
-      <div ref={ref} className="container">
-        Person ID: {props.id} <br/>
-        Name:{props.name}  
-      </div>
-    )
-  });
+
   
   return (
     <>
-      <button onClick={shuffleList}> shuffle</button>
-      <button onClick={shuffleList2}> shuffle2</button>
-
-      <input type="text" placeholder="ID to swap from" onChange={e => setCurrentFromID(e.target.value)} />
-      <input type="text" placeholder="ID to swap to" onChange={e => setCurrentToID(e.target.value)} />
-      <button onClick={submitValue}>Swap</button>
-      
+      <Snow/>
+      {/* <button onClick={shuffleList}> shuffle</button>
+      <button onClick={shuffleList2}> shuffle2</button> */}
+      <div className="header">
+        <Neon className="neon"/>
+        <input type="text" placeholder="ID to swap from" onChange={e => setCurrentFromID(e.target.value)} />
+        <input type="text" placeholder="ID to swap to" onChange={e => setCurrentToID(e.target.value)} />
+        <button onClick={submitValue}>Swap</button>
+      </div>
       <div className="list">
         {output.map(d => {
           return(
-            <div>
-              <div>Gift ID: {d.data1.id}</div> 
-              <div>Gift Name:{d.data1.name}</div> 
-              <FlipMove>
-                <FunctionalArticle key={d.data2.id} {...d.data2} />
-              </FlipMove>
-            </div>
+            <Container data={d}></Container>
           )
         })}
       </div>
